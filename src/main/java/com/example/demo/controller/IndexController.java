@@ -18,17 +18,21 @@ public class IndexController {
     @GetMapping("/")//  /后面没有则代表根
     public  String index(HttpServletRequest request){
         Cookie[] cookies = request.getCookies();
-        for(Cookie cookie:cookies)//循环找cookie
+        if(cookies!=null)
         {
-            if(cookie.getName().equals("token")){//找key为token的value
-                String token =cookie.getValue();
-                User user =userMapper.findByToken(token);//数据库里找token的值
-                if(user !=null){
-                    request.getSession().setAttribute("user",user);//找到把登录信息加入session中
+            for(Cookie cookie:cookies)//循环找cookie
+            {
+                if(cookie.getName().equals("token")){//找key为token的value
+                    String token =cookie.getValue();
+                    User user =userMapper.findByToken(token);//数据库里找token的值
+                    if(user !=null){
+                        request.getSession().setAttribute("user",user);//找到把登录信息加入session中
+                    }
+                    break;
                 }
-                break;
             }
         }
+
 
 
         return "index";
