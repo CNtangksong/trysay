@@ -26,4 +26,6 @@ github
 
 Booststrap
 
+flyway脚本工具
+
 h2数据库，后期转mysql数据库
