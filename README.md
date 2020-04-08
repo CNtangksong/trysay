@@ -14,6 +14,9 @@ user拿access_token访问github获取用户信息
 
 [Bootstrap 界面设置](https://v3.bootcss.com/components/#navbar)
 
+[Spring boot Mybatis](http://mybatis.org/spring-boot-starter/mybatis-spring-boot-autoconfigure/)
+
+[Spring boot连接数据库文档29](https://docs.spring.io/spring-boot/docs/2.0.0.RC1/reference/htmlsingle/)
 ##工具
 idea
 
