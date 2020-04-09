@@ -27,15 +27,18 @@
                 <button type="submit" class="btn btn-default">搜索</button>
             </form>
             <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown" th:if="${session.githubUser !=null}">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" th:text="${session.githubUser.getName()}"><span class="caret"></span></a>
+                <li th:if="${session.user !=null}">
+                    <a href="/publish">发贴</a>
+                </li>
+                <li class="dropdown" th:if="${session.user !=null}">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" th:text="${session.user.getName()}"><span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="#">消息</a></li>
                         <li><a href="#">设置</a></li>
                         <li><a href="#">退出</a></li>
                     </ul>
                 </li>
-                <li th:if="${session.githubUser == null}">
+                <li th:if="${session.user == null}">
                     <a href="https://github.com/login/oauth/authorize?client_id=75c571318c6db9127268&redirect_uri=http://localhost:8887/callback&scope=user&state=1">登录</a>
                 </li>
             </ul>
@@ -50,17 +53,17 @@
                 <form action="/publish" method="post">
                     <div class="form-group">
                         <label for="title">帖子标题</label>
-                        <input type="text" class="form-control" id="title" name="title" placeholder="标题……">
+                        <input type="text" class="form-control" id="title" th:value="${title}" name="title" placeholder="标题……">
                     </div>
                     <div class="form-group">
-                        <label for="title">内容</label>
-                        <textarea name="description" id="description" class="form-control" cols="30" rows="10"></textarea>
+                        <label for="description">内容</label>
+                        <textarea name="description" id="description" th:text="${description}" class="form-control" cols="30" rows="10"></textarea> <!--这里还是用text，用value没有值了-->
                     </div>
                     <div class="form-group">
-                        <label for="title">添加主题:</label>
-                        <input type="text" class="form-control" id="tag" name="tag" placeholder="输入标签(多个请按逗号隔开)">
+                        <label for="tag">添加主题:</label>
+                        <input type="text" class="form-control" th:value="${tag}" id="tag" name="tag" placeholder="输入标签(多个请按逗号隔开)">
                     </div>
-                    <span class="alert alert-danger" th:text="${error}"></span>
+                    <span class="alert alert-danger" th:if="${error}!=null" th:text="${error}"></span>
                     <button type="submit" class="btn btn-publish btn-success">发布</button>
                 </form>
             </div><!--屏幕够大的时候左右9：3，小的时候分上下-->

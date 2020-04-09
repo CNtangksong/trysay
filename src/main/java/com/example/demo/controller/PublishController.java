@@ -35,9 +35,25 @@ public class PublishController {
             @RequestParam("tag") String tag,
             HttpServletRequest request,
             Model model){       //服务端错误写道model里面
+
+        model.addAttribute("title",title);
+        model.addAttribute("description",description);
+        model.addAttribute("tag",tag);
+        if(title==null||title==""){
+            model.addAttribute("error","标题不能为空");
+            return "publish";
+        }
+        if(description==null||description==""){
+            model.addAttribute("error","内容不能为空");
+            return "publish";
+        }
+        if(tag==null||tag==""){
+            model.addAttribute("error","主题不能为空");
+            return "publish";
+        }
+
         User user=null;
         Cookie[] cookies = request.getCookies();
-        if(cookies!=null) {
             for (Cookie cookie : cookies)//循环找cookie
             {
                 if (cookie.getName().equals("token")) {//找key为token的value
@@ -49,7 +65,6 @@ public class PublishController {
                     break;
                 }
             }
-        }
         if(user==null){
             model.addAttribute("error","用户未登录");
             return "publish";
