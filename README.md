@@ -19,6 +19,8 @@ user拿access_token访问github获取用户信息
 
 [Spring boot连接数据库文档29](https://docs.spring.io/spring-boot/docs/2.0.0.RC1/reference/htmlsingle/)
 
+[Lombok @Data](https://projectlombok.org/setup/maven)
+
 ##工具
 idea
 
@@ -29,3 +31,5 @@ Booststrap
 flyway脚本工具
 
 h2数据库，后期转mysql数据库
+
+lombok 

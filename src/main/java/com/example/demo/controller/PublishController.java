@@ -54,6 +54,7 @@ public class PublishController {
 
         User user=null;
         Cookie[] cookies = request.getCookies();
+        if(cookies!=null) {
             for (Cookie cookie : cookies)//循环找cookie
             {
                 if (cookie.getName().equals("token")) {//找key为token的value
@@ -65,6 +66,7 @@ public class PublishController {
                     break;
                 }
             }
+        }
         if(user==null){
             model.addAttribute("error","用户未登录");
             return "publish";
