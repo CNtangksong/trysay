@@ -13,4 +13,7 @@ public interface UserMapper {
 
     @Select("select * from user where token = #{token}") //#{}会把形参放进去，类会自动放，不是类要加Param注解
     User findByToken(@Param("token") String token);
+
+    @Select("select * from user where id = #{id}")
+    User findbyId(Integer id);
 }
