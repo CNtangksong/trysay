@@ -21,6 +21,8 @@ user拿access_token访问github获取用户信息
 
 [Lombok @Data](https://projectlombok.org/setup/maven)
 
+[Spring developer 热部署](https://blog.csdn.net/xm393392625/article/details/88830196)
+
 ##工具
 idea
 

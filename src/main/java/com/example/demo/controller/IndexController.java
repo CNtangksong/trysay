@@ -1,15 +1,15 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.PaginationDTO;
 import com.example.demo.dto.QuestionDTO;
-import com.example.demo.mapper.QuestionMapper;
 import com.example.demo.mapper.UserMapper;
-import com.example.demo.model.Question;
 import com.example.demo.model.User;
 import com.example.demo.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -26,7 +26,9 @@ public class IndexController {
 
     @GetMapping("/")//  /后面没有则代表根
     public  String index(HttpServletRequest request,
-            Model model){
+                         Model model,
+                         @RequestParam(name = "page", defaultValue="1") Integer page,//默认第一页是1，每页5个
+                         @RequestParam(name = "size", defaultValue="2") Integer size){
         Cookie[] cookies = request.getCookies();
         if(cookies!=null)
         {
@@ -44,8 +46,8 @@ public class IndexController {
         }
 
 
-        List<QuestionDTO> questionList =questionService.list();//获取用户发帖的数据，在跳转页面之前
-        model.addAttribute("questions",questionList);
+        PaginationDTO pagination =questionService.list(page,size);//获取用户发帖的数据，在跳转页面之前
+        model.addAttribute("pagination",pagination);
         return "index";
 
     }

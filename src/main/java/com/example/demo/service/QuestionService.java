@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.dto.PaginationDTO;
 import com.example.demo.dto.QuestionDTO;
 import com.example.demo.mapper.QuestionMapper;
 import com.example.demo.mapper.UserMapper;
@@ -17,12 +18,26 @@ public class QuestionService {
 
     @Autowired
     private QuestionMapper questionMapper;
+
     @Autowired
     private UserMapper userMapper;
 
-    public List<QuestionDTO> list() {
-        List<Question> questions=questionMapper.list();
+    public PaginationDTO list(Integer page, Integer size) {
+
+        PaginationDTO paginationDTO = new PaginationDTO();
+        Integer totalCount = questionMapper.count();
+        paginationDTO.setPagination(totalCount,page,size);
+        if(page<1){//判断page的范围，以免有人手动修改地址出现错误
+            page=1;
+        }
+        if(page>paginationDTO.getTotalPage()){
+            page=paginationDTO.getTotalPage();
+        }
+
+        Integer offset = size *(page-1);
+        List<Question> questions=questionMapper.list(offset,size);
         List<QuestionDTO> questionDTOList = new ArrayList<>();//新建dtoList
+
         for (Question question:questions) {
             User user =userMapper.findbyId(question.getCreator());
             QuestionDTO questionDTO = new QuestionDTO();
@@ -30,6 +45,7 @@ public class QuestionService {
             questionDTO.setUser(user);//放入user
             questionDTOList.add(questionDTO);//把数据放进List
         }
-        return questionDTOList;
+        paginationDTO.setQuestions(questionDTOList);
+        return paginationDTO;
     }   //做中间层，负责把mapper组装起来，不然不能关联（帖子和用户）起来使用
 }

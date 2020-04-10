@@ -63,8 +63,19 @@
                         <label for="tag">添加主题:</label>
                         <input type="text" class="form-control" th:value="${tag}" id="tag" name="tag" placeholder="输入标签(多个请按逗号隔开)">
                     </div>
-                    <span class="alert alert-danger" th:if="${error}!=null" th:text="${error}"></span>
-                    <button type="submit" class="btn btn-publish btn-success">发布</button>
+
+                    <div class="container-fluid main">
+                        <div class="row">
+                            <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+                                <div class="alert-danger col-lg-12 col-md-12 col-sm-12 col-xs-12"
+                                    th:if="${error}!=null" th:text="${error}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                            <button type="submit" class="btn btn-publish btn-success">发布</button>
+                        </div>
+                    </div>
                 </form>
             </div><!--屏幕够大的时候左右9：3，小的时候分上下-->
 
