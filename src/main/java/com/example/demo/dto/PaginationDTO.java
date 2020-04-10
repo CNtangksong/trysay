@@ -17,19 +17,9 @@ public class PaginationDTO {//此dto用来控制返回页面的帖子信息，�
     private Integer totalPage;
 
 
-    public void setPagination(Integer totalCount, Integer page, Integer size) {
-        if(totalCount % size==0){//算总页数
-            totalPage=totalCount / size ;
-        }else {
-            totalPage=totalCount / size +1;
-        }
-
-        if(page<1){//判断page的范围，以免有人手动修改地址出现错误
-            page=1;
-        }
-        if(page>totalPage){
-            page=totalPage;
-        }
+    public void setPagination(Integer totalPage, Integer page) {
+        this.totalPage=totalPage;
+        this.page=page;
 
         this.page=page;
         pages.add(page);//加当前页

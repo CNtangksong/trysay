@@ -23,6 +23,8 @@ user拿access_token访问github获取用户信息
 
 [Spring developer 热部署](https://blog.csdn.net/xm393392625/article/details/88830196)
 
+[jquery](https://code.jquery.com/jquery-3.4.1.min.js)
+
 ##工具
 idea
 

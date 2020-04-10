@@ -16,3 +16,7 @@ body{
     width: 38px;
     height: 38px;
 }
+
+.profile .section{      /*分层级，profile 下的section 注意中间空格！！！ */
+    margin-top: 15px;
+}
