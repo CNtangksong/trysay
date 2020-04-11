@@ -1,12 +1,16 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.QuestionDTO;
 import com.example.demo.mapper.QuestionMapper;
 import com.example.demo.model.Question;
 import com.example.demo.model.User;
+import com.example.demo.service.QuestionService;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpServletRequest;
@@ -15,18 +19,30 @@ import javax.servlet.http.HttpServletRequest;
 public class PublishController {
 
     @Autowired
-    private QuestionMapper questionMapper;
+    private QuestionService questionService;
 
     @GetMapping("/publish")
     public String publish(){
         return "publish";
     }
 
+    @GetMapping("/publish/{id}")
+    public  String edit(@PathVariable(name = "id")Integer id,
+                        Model model){//拿路径后面的id
+        QuestionDTO question = questionService.getById(id);
+        model.addAttribute("title",question.getTitle());//回些到页面
+        model.addAttribute("description",question.getDescription());
+        model.addAttribute("tag",question.getTag());
+        model.addAttribute("id",question.getId());//用来区分是否是修改的
+        return "publish";
+    }
+
     @PostMapping("/publish")
     public  String doPublish(
-            @RequestParam("title") String title,
-            @RequestParam("description") String description,
-            @RequestParam("tag") String tag,
+            @RequestParam(value = "title",required = false) String title,//可以空
+            @RequestParam(value ="description",required = false) String description,
+            @RequestParam(value ="tag",required = false) String tag,
+            @RequestParam(value ="id",required = false)Integer id,
             HttpServletRequest request,
             Model model){       //服务端错误写道model里面
 
@@ -58,9 +74,9 @@ public class PublishController {
         question.setDescription(description);
         question.setTag(tag);
         question.setCreator(user.getId());
-        question.setGmtCreate(System.currentTimeMillis());
-        question.setGmtModified(question.getGmtCreate());
-        questionMapper.creat(question);
+        question.setId(id);
+
+        questionService.createOrUpdate(question);
         return "redirect:/";
     }
 }
