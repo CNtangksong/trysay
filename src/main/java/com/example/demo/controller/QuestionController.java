@@ -14,7 +14,7 @@ public class QuestionController {//controller一般可以获得地址的一些�
     @Autowired
     private QuestionService questionService;//service才拿的到，相当于把mapper组合起来了
 
-    @GetMapping("/question/${id}")//下面可以直接拿到地址栏后面的
+    @GetMapping("/question/{id}")//下面可以直接拿到地址栏后面的
     public String question(@PathVariable(name = "id")Integer id,
      Model model){
 

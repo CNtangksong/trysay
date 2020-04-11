@@ -5,6 +5,7 @@ import com.example.demo.dto.GithubUser;
 import com.example.demo.mapper.UserMapper;
 import com.example.demo.model.User;
 import com.example.demo.provider.GithubProvider;
+import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.UUID;
 
@@ -29,7 +31,7 @@ public class AuthorizeController {
     private String redirectUri;
 
     @Autowired
-    private UserMapper userMapper;//报错无影响
+    private UserService userService;
 
     @GetMapping("/callback")
     public String callback(@RequestParam(name="code") String code,  //接收参数
@@ -50,15 +52,23 @@ public class AuthorizeController {
             user.setToken(token);
             user.setName(githubUser.getName());
             user.setAccountId(String.valueOf(githubUser.getId()));
-            user.setGmtCreate(System.currentTimeMillis());//当前时间
-            user.setGmtModified(user.getGmtCreate());
             user.setAvatarUrl(githubUser.getAvatarUrl());
-            userMapper.insert(user);
+            userService.createOrUpdate(user);
             response.addCookie(new Cookie("token",token));//把生成的token放在（数据库，前面放了）和cookie中
             return "redirect:/";    //重定向
         }else{
             //失败
             return "redirect:/";    //重定向
         }
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request,//设置session
+                         HttpServletResponse response){//response设置的cookie
+        request.getSession().removeAttribute("user");
+        Cookie cookie = new Cookie("token",null);//去cookie，不去的话还是会拿到token
+        cookie.setMaxAge(0);//生命周期0，加完就没了
+        response.addCookie(cookie);
+        return "redirect:/";
     }
 }
