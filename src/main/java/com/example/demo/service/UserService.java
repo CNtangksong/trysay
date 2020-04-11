@@ -2,8 +2,11 @@ package com.example.demo.service;
 
 import com.example.demo.mapper.UserMapper;
 import com.example.demo.model.User;
+import com.example.demo.model.UserExample;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class UserService {
@@ -11,17 +14,25 @@ public class UserService {
     private UserMapper userMapper;
 
     public void createOrUpdate(User user) {
-        User dbUser = userMapper.findByAccountId(user.getAccountId());
-        if(dbUser==null){//插入
+        UserExample userExample = new UserExample();
+        userExample.createCriteria()
+                .andTokenEqualTo(user.getAccountId());
+        List<User> users = userMapper.selectByExample(userExample);
+        if(users.size()==0){//插入
             user.setGmtCreate(System.currentTimeMillis());//当前时间
             user.setGmtModified(user.getGmtCreate());
             userMapper.insert(user);
         }else{//更新
-            dbUser.setGmtModified(System.currentTimeMillis());//更新时间
-            dbUser.setAvatarUrl(user.getAvatarUrl());//头像可能变化
-            dbUser.setName(user.getName());//名字
-            dbUser.setToken(user.getToken());
-            userMapper.update(dbUser);
+            User dbUser = users.get(0);
+            User updateUser = new User();
+            updateUser.setGmtModified(System.currentTimeMillis());//更新时间
+            updateUser.setAvatarUrl(user.getAvatarUrl());//头像可能变化
+            updateUser.setName(user.getName());//名字
+            updateUser.setToken(user.getToken());
+            UserExample example = new UserExample();
+            example.createCriteria()
+                    .andIdEqualTo(dbUser.getId());//查id
+            userMapper.updateByExampleSelective(updateUser,example);//第一个更新的内容,第二个是要被替换的内容
         }
     }
 }

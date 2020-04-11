@@ -2,6 +2,7 @@ package com.example.demo.interceptor;
 
 import com.example.demo.mapper.UserMapper;
 import com.example.demo.model.User;
+import com.example.demo.model.UserExample;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -10,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 @Service    //没有service autowired不会工作，因为不是spring接管的
 public class SessionInterceptor implements HandlerInterceptor {
@@ -26,9 +28,12 @@ public class SessionInterceptor implements HandlerInterceptor {
             {
                 if(cookie.getName().equals("token")){//找key为token的value
                     String token =cookie.getValue();
-                    User user =userMapper.findByToken(token);//数据库里找token的值
-                    if(user !=null){
-                        request.getSession().setAttribute("user",user);//找到把登录信息加入session中
+                    UserExample userExample = new UserExample();
+                    userExample.createCriteria()
+                            .andTokenEqualTo(token);//会自动把token拼到sql语句上,数据库里找token的值
+                    List<User> users = userMapper.selectByExample(userExample);
+                    if(users.size() !=0){
+                        request.getSession().setAttribute("user",users.get(0));//找到把登录信息加入session中
                     }
                     break;
                 }

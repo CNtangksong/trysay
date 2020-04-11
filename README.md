@@ -25,6 +25,8 @@ user拿access_token访问github获取用户信息
 
 [jquery](https://code.jquery.com/jquery-3.4.1.min.js)
 
+[mybatis maven使用](http://mybatis.org/generator/running/runningWithMaven.html)
+
 ##工具
 idea
 
@@ -37,3 +39,6 @@ flyway脚本工具
 h2数据库，后期转mysql数据库
 
 lombok 
+
+mybatis使用  mvn -Dmybatis.generator.overwrite=true mybatis-generator:generate
+有点类似flyway

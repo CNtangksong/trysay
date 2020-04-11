@@ -49,7 +49,7 @@ public class QuestionService {
         List<QuestionDTO> questionDTOList = new ArrayList<>();//新建dtoList
 
         for (Question question:questions) {
-            User user =userMapper.findbyId(question.getCreator());
+            User user =userMapper.selectByPrimaryKey(question.getCreator());
             QuestionDTO questionDTO = new QuestionDTO();
             BeanUtils.copyProperties(question,questionDTO);//Spring 内置方法，把question值放到DTO中，questionDTO.setId(question.getId());
             questionDTO.setUser(user);//放入user
@@ -87,7 +87,7 @@ public class QuestionService {
         List<QuestionDTO> questionDTOList = new ArrayList<>();//新建dtoList
 
         for (Question question:questions) {
-            User user =userMapper.findbyId(question.getCreator());
+            User user =userMapper.selectByPrimaryKey(question.getCreator());
             QuestionDTO questionDTO = new QuestionDTO();
             BeanUtils.copyProperties(question,questionDTO);//Spring 内置方法，把question值放到DTO中，questionDTO.setId(question.getId());
             questionDTO.setUser(user);//放入user
@@ -103,7 +103,7 @@ public class QuestionService {
         Question question = questionMapper.getById(id);
         QuestionDTO questionDTO = new QuestionDTO();
         BeanUtils.copyProperties(question,questionDTO);//question放到DTO
-        User user =userMapper.findbyId(question.getCreator());
+        User user =userMapper.selectByPrimaryKey(question.getCreator());
         questionDTO.setUser(user);
         return questionDTO;
     }
