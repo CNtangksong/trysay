@@ -25,7 +25,7 @@ user拿access_token访问github获取用户信息
 
 [jquery](https://code.jquery.com/jquery-3.4.1.min.js)
 
-[mybatis maven使用](http://mybatis.org/generator/running/runningWithMaven.html)
+[mybatis generator maven使用](http://mybatis.org/generator/running/runningWithMaven.html)
 
 ##工具
 idea

@@ -31,7 +31,7 @@ public class UserService {
             updateUser.setToken(user.getToken());
             UserExample example = new UserExample();
             example.createCriteria()
-                    .andIdEqualTo(dbUser.getId());//查id
+                    .andIdEqualTo(dbUser.getId());//查符合id条件的
             userMapper.updateByExampleSelective(updateUser,example);//第一个更新的内容,第二个是要被替换的内容
         }
     }
