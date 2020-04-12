@@ -4,6 +4,7 @@ import com.example.demo.dto.PaginationDTO;
 import com.example.demo.dto.QuestionDTO;
 import com.example.demo.exception.CustomizeErrorCode;
 import com.example.demo.exception.CustomizeException;
+import com.example.demo.mapper.QuestionExtMapper;
 import com.example.demo.mapper.QuestionMapper;
 import com.example.demo.mapper.UserMapper;
 import com.example.demo.model.Question;
@@ -19,6 +20,9 @@ import java.util.List;
 
 @Service
 public class QuestionService {
+
+    @Autowired
+    private QuestionExtMapper questionExtMapper;
 
     @Autowired
     private QuestionMapper questionMapper;
@@ -137,12 +141,18 @@ public class QuestionService {
             example.createCriteria()
                     .andIdEqualTo(question.getId());
             int update = questionMapper.updateByExampleSelective(updateQuestion, example);//1成功0失败
-            {
-                if (update !=1){
-                    throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
-                }
+            if (update !=1){
+                throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
             }
-
         }
+    }
+
+    public void inView(Integer id) {//访问帖子的时候调用次方法，含一个id
+        Question question = new Question();
+        question.setId(id);
+        question.setViewCount(1);
+        questionExtMapper.incView(question);//此方法是questionextmapper的,questionextmapper与questionextmapper.xml关联（最顶上有关联信息），从而实现直接在数据库上进行+1操作
+        //以上是为了解决并发运行时的问题，把数据库的值取出来会有问题
+        //还可以了解一下悲观/乐观锁
     }
 }

@@ -19,6 +19,8 @@ public class QuestionController {//controller一般可以获得地址的一些�
      Model model){
 
         QuestionDTO questionDTO = questionService.getById(id);//questionDTO还有user信息
+        //阅读数添加
+        questionService.inView(id);
         model.addAttribute("question",questionDTO);//写到页面上去
         return "question";
     }
