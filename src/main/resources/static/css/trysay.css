@@ -17,6 +17,10 @@ body{
     height: 38px;
 }
 
+.media-body{
+    padding-top: 10px;
+}
+
 .profile .section{      /*分层级，profile 下的section 注意中间空格！！！ */
     margin-top: 15px;
 }
@@ -28,4 +32,13 @@ body{
 
 .jumbotron{
     margin: 50px;
+}
+
+.comment{
+    margin: 10px 0;/*上下10，左右0*/
+}
+
+.btn-comment{
+    float: right;
+    margin-bottom: 10px;
 }

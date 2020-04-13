@@ -10,6 +10,9 @@ import com.example.demo.model.Comment;
 import com.example.demo.model.Question;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.beans.Transient;
 
 @Service
 public class CommentService {
@@ -21,6 +24,7 @@ public class CommentService {
     @Autowired
     private QuestionExtMapper questionExtMapper;
 
+    @Transactional//spring自带的注解，把方法变成一个事务，只要里面出现失败，全部回滚
     public void insert(Comment comment) {
         if(comment.getParentId()==null||comment.getParentId()==0){
             throw new CustomizeException(CustomizeErrorCode.TARGET_PARAM_NOT_FOUND);
@@ -44,7 +48,7 @@ public class CommentService {
             if(question==null){
                 throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
             }
-            commentMapper.insert(comment);
+            commentMapper.insert(comment);//插入评论
             question.setCommentCount(1);//给评论数赋值1，再调用extmapper来实现+1
             questionExtMapper.incCommentCount(question);
         }
