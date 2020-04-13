@@ -27,7 +27,7 @@ public class PublishController {
     }
 
     @GetMapping("/publish/{id}")
-    public  String edit(@PathVariable(name = "id")Integer id,
+    public  String edit(@PathVariable(name = "id")Long id,
                         Model model){//拿路径后面的id
         QuestionDTO question = questionService.getById(id);
         model.addAttribute("title",question.getTitle());//回些到页面
@@ -42,7 +42,7 @@ public class PublishController {
             @RequestParam(value = "title",required = false) String title,//可以空
             @RequestParam(value ="description",required = false) String description,
             @RequestParam(value ="tag",required = false) String tag,
-            @RequestParam(value ="id",required = false)Integer id,
+            @RequestParam(value ="id",required = false)Long id,
             HttpServletRequest request,
             Model model){       //服务端错误写道model里面
 

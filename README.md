@@ -27,7 +27,8 @@ user拿access_token访问github获取用户信息
 
 [mybatis generator maven使用](http://mybatis.org/generator/running/runningWithMaven.html)
 
-##工具
+## 工具
+
 idea
 
 github
