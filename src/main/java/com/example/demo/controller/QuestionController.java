@@ -1,8 +1,8 @@
 package com.example.demo.controller;
 
-import com.example.demo.dto.CommentCreateDTO;
 import com.example.demo.dto.CommentDTO;
 import com.example.demo.dto.QuestionDTO;
+import com.example.demo.enums.CommentTypeEnum;
 import com.example.demo.service.CommentService;
 import com.example.demo.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +27,7 @@ public class QuestionController {//controller一般可以获得地址的一些�
 
         QuestionDTO questionDTO = questionService.getById(id);//questionDTO还有user信息
 
-        List<CommentDTO> comments = commentService.listByQuestionId(id);
+        List<CommentDTO> comments = commentService.listByTargetId(id, CommentTypeEnum.QUESTION);
 
         //阅读数添加
         questionService.inView(id);
