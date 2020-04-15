@@ -26,8 +26,10 @@ body{
 }
 
 .trysay-menu{
+    display: block;/*改文块元素才能设置那些，因为a标签带链接也是行内元素*/
     color: #999;
     font-size: 13px;
+    margin-bottom: 15px;
 }
 
 .jumbotron{
@@ -41,4 +43,29 @@ body{
 .btn-comment{
     float: right;
     margin-bottom: 10px;
+}
+
+.comments{
+    margin-bottom: 15px;
+    padding: 5px;
+    border-bottom: 1px solid #eee;/*1px的实线颜色999*/
+}
+
+.comment-sp{
+    margin-top: 0;
+}
+
+.menu{
+    color: #999;
+    margin-top: 5px;
+}
+
+.menu .icon{
+    margin-right: 6px;/* 间隔*/
+    font-size: 15px;
+    cursor: pointer;/* 选中变成小手*/
+}
+
+.menu .icon:hover{/* 鼠标悬浮*/
+    color: #499ef3;
 }

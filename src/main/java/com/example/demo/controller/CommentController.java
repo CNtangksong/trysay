@@ -1,6 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.dto.CommentDTO;
+import com.example.demo.dto.CommentCreateDTO;
 import com.example.demo.dto.ResultDTO;
 import com.example.demo.exception.CustomizeErrorCode;
 import com.example.demo.model.Comment;
@@ -23,7 +23,7 @@ public class CommentController {
 
     @ResponseBody//返回一个object，而不是一个页面
     @RequestMapping(value = "/comment" , method = RequestMethod.POST)
-    public Object post(@RequestBody CommentDTO commentDTO,
+    public Object post(@RequestBody CommentCreateDTO commentCreateDTO,
                        HttpServletRequest request){//利用dto把json自动传进来
 
         User user = (User) request.getSession().getAttribute("user");//判断是否登陆
@@ -31,9 +31,9 @@ public class CommentController {
             return ResultDTO.errorOf(CustomizeErrorCode.NO_LOGIN);
         }
         Comment comment = new Comment();
-        comment.setParentId(commentDTO.getParentId());
-        comment.setContent(commentDTO.getContent());
-        comment.setType(commentDTO.getType());
+        comment.setParentId(commentCreateDTO.getParentId());
+        comment.setContent(commentCreateDTO.getContent());
+        comment.setType(commentCreateDTO.getType());
         comment.setGmtModified(System.currentTimeMillis());
         comment.setGmtCreate(System.currentTimeMillis());
         comment.setCommentator(user.getId());
