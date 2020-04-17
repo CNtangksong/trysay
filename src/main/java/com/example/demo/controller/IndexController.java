@@ -18,7 +18,7 @@ public class IndexController {
     @GetMapping("/")//  /后面没有则代表根
     public  String index(Model model,
                          @RequestParam(name = "page", defaultValue="1") Integer page,//默认第一页是1，每页5个
-                         @RequestParam(name = "size", defaultValue="2") Integer size){
+                         @RequestParam(name = "size", defaultValue="5") Integer size){
         PaginationDTO pagination =questionService.list(page,size);//获取用户发帖的数据，在跳转页面之前
         model.addAttribute("pagination",pagination);
         return "index";

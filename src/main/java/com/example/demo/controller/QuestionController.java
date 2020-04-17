@@ -26,13 +26,14 @@ public class QuestionController {//controller一般可以获得地址的一些�
     public String question(@PathVariable(name = "id")Long id, Model model){
 
         QuestionDTO questionDTO = questionService.getById(id);//questionDTO还有user信息
-
+        List<QuestionDTO> relatedQuestions = questionService.selctRelated(questionDTO);
         List<CommentDTO> comments = commentService.listByTargetId(id, CommentTypeEnum.QUESTION);
 
         //阅读数添加
         questionService.inView(id);
         model.addAttribute("question",questionDTO);//写到页面上去
         model.addAttribute("comments",comments);
+        model.addAttribute("relatedQuestions",relatedQuestions);
         return "question";
     }
 }
