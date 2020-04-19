@@ -94,3 +94,19 @@ function collapseComments(e) {
         }
     }
 }
+
+function showSelectTag() {
+    $("#select-tag").show();
+}
+
+function selectTag(e) {
+    var value = e.getAttribute("data-tag");
+    var previous = $("#tag").val();
+    if (previous.indexOf(value) == -1) {//返回字符串首次出现的地方
+        if (previous) {//如果存在
+            $("#tag").val(previous + ',' + value);
+        } else {
+            $("#tag").val(value);
+        }
+    }
+}
