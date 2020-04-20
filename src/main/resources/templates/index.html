@@ -27,7 +27,7 @@
             <h2><span class="glyphicon glyphicon-list" aria-hidden="true"></span>发现</h2><!--class那个是图标-->
             <hr>
 
-            <div class="media" th:each="question:${pagination.questions}"><!--一个复一个单-->
+            <div class="media" th:each="question:${pagination.data}"><!--一个复一个单-->
                 <div class="media-left">
                     <a href="#">
                         <img class="media-object img-rounded"

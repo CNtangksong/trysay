@@ -67,7 +67,7 @@ public class QuestionService {
             questionDTO.setUser(user);//放入user
             questionDTOList.add(questionDTO);//把数据放进List
         }
-        paginationDTO.setQuestions(questionDTOList);
+        paginationDTO.setData(questionDTOList);
         return paginationDTO;
     }   //做中间层，负责把mapper组装起来，不然不能关联（帖子和用户）起来使用
 
@@ -114,7 +114,7 @@ public class QuestionService {
             questionDTOList.add(questionDTO);//把数据放进List
         }
 
-        paginationDTO.setQuestions(questionDTOList);
+        paginationDTO.setData(questionDTOList);
         return paginationDTO;
     }
 

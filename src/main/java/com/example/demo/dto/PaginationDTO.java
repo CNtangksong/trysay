@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-public class PaginationDTO {//此dto用来控制返回页面的帖子信息，在service中组合
-    private List<QuestionDTO> questions;//页面信息数组
+public class PaginationDTO<T> {//此dto用来控制返回页面的帖子信息，在service中组合
+    private List<T> data;//页面信息数组
     private boolean showPrevious;//上页
     private boolean showFirstPage;//首页
     private boolean showNext;//下页
