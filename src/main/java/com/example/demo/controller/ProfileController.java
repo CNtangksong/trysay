@@ -46,7 +46,6 @@ public class ProfileController {
             Long unreadCount=notificationService.unreadCount(user.getId());
             model.addAttribute("pagination",paginationDTO);
             model.addAttribute("section","replies");//section等于questions
-            model.addAttribute("unreadCount",unreadCount);
             model.addAttribute("sectionName","最新回复");
         }
 

@@ -59,6 +59,7 @@ public class NotificationService {
         NotificationExample example=new NotificationExample();
         example.createCriteria()
                 .andReceiverEqualTo(userId);
+        example.setOrderByClause("gmt_create desc");//按创建时间倒叙排序
         List<Notification> notifications = notificationMapper.selectByExampleWithRowbounds(example, new RowBounds(offset, size));//利用mybatis的一个插件实现分页
 
         if(notifications.size()==0){

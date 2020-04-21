@@ -28,6 +28,8 @@ user拿access_token访问github获取用户信息
 [mybatis generator maven使用](http://mybatis.org/generator/running/runningWithMaven.html)
 
 [moment.js](http://momentjs.cn/)
+
+[editor.md](https://github.com/pandao/editor.md)
 ## 工具
 
 idea
@@ -44,3 +46,5 @@ lombok
 
 mybatis使用  mvn -Dmybatis.generator.overwrite=true mybatis-generator:generate
 有点类似flyway
+
+editor.md (markdown)
