@@ -73,6 +73,7 @@ public class CommentService {
             if(question==null){
                 throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
             }
+            comment.setCommentCount(0);//给个初始值0，不然会自动为空
             commentMapper.insert(comment);//插入评论
             question.setCommentCount(1);//给评论数赋值1，再调用extmapper来实现+1
             questionExtMapper.incCommentCount(question);
@@ -83,6 +84,9 @@ public class CommentService {
 
 //    创建通知
     private void createNotify(Comment comment, Long receiver, String notifierName, String outerTitle, NotificationTypeEnum notificationType,Long outerId) {
+        if(receiver == comment.getCommentator()){//接受通知的人和发送的人同就不创建
+            return;
+        }
         Notification notification = new Notification();
         notification.setGmtCreate(System.currentTimeMillis());
         notification.setType(notificationType.getType());
