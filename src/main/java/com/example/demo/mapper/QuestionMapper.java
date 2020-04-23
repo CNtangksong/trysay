@@ -1,5 +1,6 @@
 package com.example.demo.mapper;
 
+import com.example.demo.dto.QuestionQueryDTO;
 import com.example.demo.model.Question;
 import com.example.demo.model.QuestionExample;
 import java.util.List;
@@ -134,4 +135,5 @@ public interface QuestionMapper {
      * @mbg.generated Mon Apr 20 16:31:56 CST 2020
      */
     int updateByPrimaryKey(Question record);
+
 }

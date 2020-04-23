@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import com.example.demo.dto.PaginationDTO;
 import com.example.demo.dto.QuestionDTO;
+import com.example.demo.dto.QuestionQueryDTO;
 import com.example.demo.exception.CustomizeErrorCode;
 import com.example.demo.exception.CustomizeException;
 import com.example.demo.mapper.QuestionExtMapper;
@@ -33,12 +34,21 @@ public class QuestionService {
     @Autowired
     private UserMapper userMapper;
 
-    public PaginationDTO list(Integer page, Integer size) {
+    public PaginationDTO list(String search,Integer page, Integer size) {
+
+        if(StringUtils.isNotBlank(search)){
+            String[] tags = StringUtils.split(search, " ");
+            search = Arrays.stream(tags).collect(Collectors.joining("|"));
+        }
+
 
         PaginationDTO paginationDTO = new PaginationDTO();
-        Integer totalCount = (int)questionMapper.countByExample(new QuestionExample());
-
         Integer totalPage;
+
+        QuestionQueryDTO questionQueryDTO = new QuestionQueryDTO();
+        questionQueryDTO.setSearch(search);
+        Integer totalCount = questionExtMapper.countBySearch(questionQueryDTO);
+
 
         if(totalCount % size==0){//算总页数
             totalPage=totalCount / size ;
@@ -57,7 +67,9 @@ public class QuestionService {
         Integer offset = size *(page-1);
         QuestionExample questionExample = new QuestionExample();
         questionExample.setOrderByClause("gmt_create desc");//倒序
-        List<Question> questions = questionMapper.selectByExampleWithRowbounds(questionExample, new RowBounds(offset, size));//利用mybatis的一个插件实现分页
+        questionQueryDTO.setSize(size);
+        questionQueryDTO.setPage(offset);
+        List<Question> questions = questionExtMapper.selectBySearch(questionQueryDTO);//利用mybatis的一个插件实现分页
         List<QuestionDTO> questionDTOList = new ArrayList<>();//新建dtoList
 
         for (Question question:questions) {
