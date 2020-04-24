@@ -48,3 +48,6 @@ mybatis使用  mvn -Dmybatis.generator.overwrite=true mybatis-generator:generate
 有点类似flyway
 
 editor.md (markdown)
+
+打包命令 mvn package
+启动命令(java -jar -Dspring.profiles.active=production target/demo-0.0.1-SNAPSHOT.jar)

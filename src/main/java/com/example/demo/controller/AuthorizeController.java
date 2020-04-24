@@ -5,6 +5,7 @@ import com.example.demo.dto.GithubUser;
 import com.example.demo.model.User;
 import com.example.demo.provider.GithubProvider;
 import com.example.demo.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.UUID;
 
 @Controller
+@Slf4j
 public class AuthorizeController {
 
     @Autowired//自动加载spring容器里面的实例
@@ -57,6 +59,7 @@ public class AuthorizeController {
             return "redirect:/";    //重定向
         }else{
             //失败
+            log.error("callback get github error,{}",githubUser);
             return "redirect:/";    //重定向
         }
     }
