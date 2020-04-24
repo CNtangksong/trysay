@@ -1,4 +1,4 @@
-create table question
+create table QUESTION
 (
 	id int auto_increment,
 	title VARCHAR(50),
