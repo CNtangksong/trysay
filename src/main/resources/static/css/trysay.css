@@ -121,3 +121,8 @@ body{
     white-space: normal;
 }
 
+.footer{
+    width:100px;
+    margin:0 auto;
+    color: #666;
+}

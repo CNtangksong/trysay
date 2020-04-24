@@ -45,7 +45,7 @@
   <select id="selectBySearch" parameterType="com.example.demo.dto.QuestionQueryDTO" resultMap="BaseResultMap">
     select * from QUESTION
     <where>
-      <if test="search != null">
+      <if test="search !='' and search != null">
         and title regexp #{search}
       </if>
     </where>
