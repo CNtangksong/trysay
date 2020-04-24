@@ -1,1 +1,1 @@
-alter table NOTIFICATION alter column OUTERID BIGINT not null;
+alter table NOTIFICATION alter column outerId BIGINT not null;
