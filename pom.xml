@@ -98,7 +98,7 @@
                 <artifactId>flyway-maven-plugin</artifactId>
                 <version>5.2.4</version>
                 <configuration>
-                    <url>jdbc:mysql://localhost:80/trysay</url>
+                    <url>jdbc:mysql://localhost:3306/trysay</url>
                     <user>root</user>
                     <password>123456</password>
                 </configuration>
