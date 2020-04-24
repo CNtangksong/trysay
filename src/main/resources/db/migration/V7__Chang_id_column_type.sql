@@ -1,4 +1,4 @@
 alter table QUESTION
-    alter column id BIGINT auto_increment;
+    ALTER COLUMN id BIGINT auto_increment;
 alter table USER
-    alter column id BIGINT auto_increment;
+    ALTER COLUMN id BIGINT auto_increment;

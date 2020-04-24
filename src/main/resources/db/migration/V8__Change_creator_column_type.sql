@@ -1,4 +1,4 @@
 alter table QUESTION
-    alter column creator BIGINT auto_increment;
+    ALTER COLUMN creator BIGINT auto_increment;
 alter table COMMENT
-    alter column commentator BIGINT auto_increment;
+    ALTER COLUMN commentator BIGINT auto_increment;
